@@ -65,7 +65,7 @@ export default ngModule => {
       let target = patternOfCompanyName.value || patternOfCompanyName;
       target = target.toLowerCase();
       companies = companies.filter((company) => {
-        return ~company.companyName.toLowerCase().search(target)
+        return ~company.companyName.toLowerCase().search(`^${target}`)
       });
       vm.model.companies = companies;
     }
@@ -76,7 +76,7 @@ export default ngModule => {
       let target = patternOfCompanyProduct.value || patternOfCompanyProduct;
       target = target.toLowerCase();
       companies = companies.filter((company) => {
-        return company.companyGoods.some((product) => ~product.toLowerCase().search(target))
+        return company.companyGoods.some((product) => ~product.toLowerCase().search(`^${target}`))
       });
       vm.model.companies = companies;
     }
