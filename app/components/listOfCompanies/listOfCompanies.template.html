@@ -1,0 +1,25 @@
+<section id="list-of-companies">
+	<div class="section-margin-for-scroll"></div>
+	<div flex-gt-sm="50" flex>
+    <md-toolbar layout="row" class="md-hue-3">
+      <div class="md-toolbar-tools">
+        <span>Normal</span>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-list flex>
+        <md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="company in listOfCompanies.model.companies" ng-click="listOfCompanies.showTabDialog($event, $index)">
+          <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ company.companyName }}</h3>
+            <md-chips ng-model="company.companyGoods" readonly="true"></md-chips>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+      </md-list>
+    </md-content>
+  </div>
+  <md-divider></md-divider>
+
+</section>
