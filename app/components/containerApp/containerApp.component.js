@@ -9,16 +9,16 @@ export default ngModule => {
       		  <list-of-companies companies="containerApp.model.companies"></list-of-companies>
       		</div>
       		<div class="col s4">
-      		  <filter-companies companies="containerApp.model.companies"></filter-companies>
+      		  <filter-companies companies="containerApp.model.companies"
+                              filter-companies-by-name="containerApp.filterCompaniesByName(patternOfCompanyName)"
+                              filter-companies-by-products="containerApp.filterCompaniesByProducts(patternOfCompanyProduct)"
+            ></filter-companies>
       		</div>
       	</div>
       </div>`
 	});
 
-	function appController() {
-		const vm = this;
-    vm.model = {
-      companies: [{
+  const initialArrayOfCompanies = [{
           companyName: 'testName', // уникальное имя, без пробелов
           companyGoods: ['first', 'second', 'third'] // массив со строками
         },{
@@ -52,8 +52,34 @@ export default ngModule => {
           companyName: 'company11', // уникальное имя, без пробелов
           companyGoods: ['first', 'third'] // массив со строками
         }
-      ]
+      ];
+
+	function appController() {
+		const vm = this;
+    vm.model = {
+      companies: [].concat(initialArrayOfCompanies)
     };
+
+    const filterCompaniesByName = (patternOfCompanyName) => {
+      let companies = [].concat(initialArrayOfCompanies);
+      let target = patternOfCompanyName.value || patternOfCompanyName;
+      target = target.toLowerCase();
+      companies = companies.filter((company) => {
+        return ~company.companyName.toLowerCase().search(target)
+      });
+      vm.model.companies = companies;
+    }
+
+    const filterCompaniesByProducts = (patternOfCompanyProduct) => {
+      console.log('A', patternOfCompanyProduct)
+      let companies = [].concat(initialArrayOfCompanies);
+      let target = patternOfCompanyProduct.value || patternOfCompanyProduct;
+      target = target.toLowerCase();
+      companies = companies.filter((company) => {
+        return company.companyGoods.some((product) => ~product.toLowerCase().search(target))
+      });
+      vm.model.companies = companies;
+    }
 
     /*$http({
       method: 'GET',
@@ -63,5 +89,8 @@ export default ngModule => {
       }, function errorCallback(response) {
         console.log('error');
       });*/
+
+    vm.filterCompaniesByName = filterCompaniesByName;
+    vm.filterCompaniesByProducts = filterCompaniesByProducts;
 	}
 }
