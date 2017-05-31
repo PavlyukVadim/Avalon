@@ -3,10 +3,13 @@ export default ngModule => {
   	controllerAs: 'containerApp',
   	controller: appController,
     template: `
-      <div class="container">
+      <div class="container" ng-cloak>
         <div class="row">
       		<div class="col s8">
       		  <list-of-companies companies="containerApp.model.companies"></list-of-companies>
+            <div class="progress-wrapper valign-wrapper">
+              <md-progress-linear md-mode="indeterminate" ng-if="containerApp.status != 'loaded'"></md-progress-linear>
+            </div>
       		</div>
       		<div class="col s4">
       		  <filter-companies companies="containerApp.model.companies"
@@ -17,6 +20,7 @@ export default ngModule => {
       	</div>
       </div>`
 	});
+  require('./containerApp.scss');
 
   const initialArrayOfCompanies = [{
           companyName: 'testName', // уникальное имя, без пробелов
@@ -54,11 +58,16 @@ export default ngModule => {
         }
       ];
 
-	function appController() {
+	function appController($timeout) {
 		const vm = this;
     vm.model = {
-      companies: [].concat(initialArrayOfCompanies)
+      companies: []
     };
+
+    $timeout(() => {
+      vm.model.companies = [].concat(initialArrayOfCompanies);
+      vm.status = 'loaded';
+    }, 2000);
 
     const filterCompaniesByName = (patternOfCompanyName) => {
       let companies = [].concat(initialArrayOfCompanies);

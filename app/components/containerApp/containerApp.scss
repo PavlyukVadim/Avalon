@@ -1,0 +1,14 @@
+.container {
+	.row {
+		.s8 {
+		  position: relative;
+			.progress-wrapper {
+				position: absolute;
+		    top: 200%;
+		    width: 60%;
+		    left: 20%;
+		    height: 100%;
+			}			
+		}
+	}
+}
