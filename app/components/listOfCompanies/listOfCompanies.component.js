@@ -74,17 +74,23 @@ export default ngModule => {
 		    console.log('error');
 		  });
 
+
 		function DialogController($scope, $mdDialog) {
-	    $scope.hide = function() {
+	    $scope.hide = () => {
 	      $mdDialog.hide();
 	    };
 
-      $scope.cancel = function() {
+      $scope.cancel = () => {
 	      $mdDialog.cancel();
 	    };
 
-	    $scope.answer = function(answer) {
+	    $scope.answer = (answer) => {
 	      $mdDialog.hide(answer);
+	    };
+
+	    const deleteCompany = () => {
+	    	$scope.model.companies.splice($scope.indexOfCurrentCompany, 1);
+	    	$scope.cancel(); 
 	    };
 
 	    $scope.model = vm.model;
