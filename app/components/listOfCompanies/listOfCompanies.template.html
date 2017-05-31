@@ -3,13 +3,13 @@
 	<div flex-gt-sm="100" flex>
     <md-toolbar layout="row" class="md-hue-3">
       <div class="md-toolbar-tools">
-        <span>Normal</span>
+        <span>List of companies</span>
       </div>
     </md-toolbar>
     <md-content>
       <md-list flex>
         <md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader>
-        <md-list-item class="md-3-line" ng-repeat="company in listOfCompanies.model.companies" ng-click="listOfCompanies.showTabDialog($event, $index)">
+        <md-list-item class="md-3-line" ng-repeat="company in listOfCompanies.companies" ng-click="listOfCompanies.showTabDialog($event, $index)">
           <img ng-src="https://easycompanies.com.au/assets/1401090891_pen_paper_business_equipment_tools_flat_icon_symbol-1da5a7b70ef40bb33e22cf1c85bbf391046b04d2813174b158f38e2036f4c504.png" class="md-avatar" alt="{{item.who}}" />
           <div class="md-list-item-text" layout="column">
             <h3>{{ company.companyName }}</h3>
