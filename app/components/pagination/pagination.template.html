@@ -1,0 +1,21 @@
+<ul class="pagination">
+  <li ng-class="{disabled: !pagination.indexOfCurrentPage}"
+      ng-click="pagination.prevPage()">
+    <a href="#!">
+      <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li ng-class="{active: $index == pagination.indexOfCurrentPage}" 
+      class="waves-effect" 
+      ng-repeat="page in pagination.arrayOfPages"
+     >
+    <a href="#!" 
+       ng-click="pagination.changePage($index)">{{$index + 1}}</a>
+  </li>
+  <li ng-class="{disabled: pagination.indexOfCurrentPage == pagination.arrayOfPages.length - 1}"    class="waves-effect"
+      ng-click="pagination.nextPage()">
+    <a href="#!">
+      <i class="fa fa-chevron-right" aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>

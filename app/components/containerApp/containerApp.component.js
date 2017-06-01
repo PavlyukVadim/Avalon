@@ -7,8 +7,8 @@ export default ngModule => {
         <div class="row">
       		<div class="col s8">
       		  <list-of-companies companies="containerApp.model.companies"></list-of-companies>
-            <div class="progress-wrapper valign-wrapper">
-              <md-progress-linear md-mode="indeterminate" ng-if="containerApp.status != 'loaded'"></md-progress-linear>
+            <div class="progress-wrapper valign-wrapper" ng-if="containerApp.status != 'loaded'">
+              <md-progress-linear md-mode="indeterminate"></md-progress-linear>
             </div>
       		</div>
       		<div class="col s4">
@@ -67,7 +67,7 @@ export default ngModule => {
     $timeout(() => {
       vm.model.companies = [].concat(initialArrayOfCompanies);
       vm.status = 'loaded';
-    }, 2000);
+    }, 0);
 
     const filterCompaniesByName = (patternOfCompanyName) => {
       let companies = [].concat(initialArrayOfCompanies);
