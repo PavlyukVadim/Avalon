@@ -3,6 +3,7 @@ export default ngModule => {
   	controllerAs: 'containerApp',
   	controller: appController,
     template: `
+      <my-header></my-header>
       <div class="container" ng-cloak>
         <div class="row">
       		<div class="col s8">
@@ -72,7 +73,7 @@ export default ngModule => {
     $timeout(() => {
       vm.model.companies = [].concat(initialArrayOfCompanies);
       vm.status = 'loaded';
-    }, 1000);
+    }, 2500);
 
     const filterCompaniesByName = (patternOfCompanyName) => {
       let companies = [].concat(initialArrayOfCompanies);
@@ -101,7 +102,7 @@ export default ngModule => {
       companies.splice(index, 1);
       initialArrayOfCompanies.splice(index, 1);
       vm.model.companies = companies;
-      if(initialArrayOfCompanies.length % 5 == 0) {
+      if(initialArrayOfCompanies.length % 5 == 0 && index == initialArrayOfCompanies.length) {
         changeCurrentPage(vm.indexOfCurrentPage - 1);
       }
     }
