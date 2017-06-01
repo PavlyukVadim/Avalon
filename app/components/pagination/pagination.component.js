@@ -1,7 +1,7 @@
 export default ngModule => {
   ngModule.component('pagination', {
     bindings: {
-      companies: '=',
+      companies: '<',
     },
     controllerAs: 'pagination',
     controller: paginationController,
@@ -16,9 +16,18 @@ export default ngModule => {
     let numberOfCompanies = self.companies.length;
     let numberOfPages = Math.ceil(numberOfCompanies / companiesOnOnePage);
     self.arrayOfPages = ' '.repeat(numberOfPages).split('').map((p, i) => i);
-    console.log(self.companies);
+    
+    self.$onInit = function () {
+  $log.log('initializing controllers, setting default values');
+  self.hello = "hello world!";
+};
+self.$onChanges = function (changes) {
+  $log.log(changes);
+};
+
     const changePage = (newIndex) => {
       self.indexOfCurrentPage = newIndex;
+      self.hello += '0'
     };
     
     const prevPage = () => {
@@ -29,7 +38,7 @@ export default ngModule => {
     const nextPage = () => {
       if(self.indexOfCurrentPage === self.arrayOfPages.length - 1) return;
       self.indexOfCurrentPage++;
-    }; 
+    };
 
     self.changePage = changePage;
     self.prevPage = prevPage;

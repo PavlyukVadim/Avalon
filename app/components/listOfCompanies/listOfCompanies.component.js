@@ -1,7 +1,8 @@
 export default ngModule => {
   ngModule.component('listOfCompanies', {
   	bindings: {
-    	companies: '<'
+    	companies: '<',
+    	deleteCompanyByIndex: '&'
   	},
   	controllerAs: 'listOfCompanies',
   	controller: listOfCompaniesController,
@@ -37,7 +38,8 @@ export default ngModule => {
 	    };
 
 	    const deleteCompany = () => {
-	    	$scope.companies.splice($scope.indexOfCurrentCompany, 1);
+	    	vm.deleteCompanyByIndex({index: $scope.indexOfCurrentCompany});
+	    	//$scope.companies.splice($scope.indexOfCurrentCompany, 1);
 	    	$scope.cancel(); 
 	    };
 

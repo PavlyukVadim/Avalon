@@ -6,7 +6,9 @@ export default ngModule => {
       <div class="container" ng-cloak>
         <div class="row">
       		<div class="col s8">
-      		  <list-of-companies companies="containerApp.model.companies"></list-of-companies>
+      		  <list-of-companies companies="containerApp.model.companies"
+                               delete-company-by-index="containerApp.deleteCompanyByIndex(index)">
+            </list-of-companies>
             <div class="progress-wrapper valign-wrapper" ng-if="containerApp.status != 'loaded'">
               <md-progress-linear md-mode="indeterminate"></md-progress-linear>
             </div>
@@ -14,8 +16,8 @@ export default ngModule => {
       		<div class="col s4">
       		  <filter-companies companies="containerApp.model.companies"
                               filter-companies-by-name="containerApp.filterCompaniesByName(patternOfCompanyName)"
-                              filter-companies-by-products="containerApp.filterCompaniesByProducts(patternOfCompanyProduct)"
-            ></filter-companies>
+                              filter-companies-by-products="containerApp.filterCompaniesByProducts(patternOfCompanyProduct)">
+            </filter-companies>
       		</div>
       	</div>
       </div>`
@@ -90,6 +92,12 @@ export default ngModule => {
       vm.model.companies = companies;
     }
 
+    const deleteCompanyByIndex = (index) => {
+      vm.model.companies.splice(index, 1);
+      console.log(vm.model.companies);
+    }
+
+
     /*$http({
       method: 'GET',
       url: 'http://avalon.avalonfaltd.com:3090/companies'
@@ -101,5 +109,6 @@ export default ngModule => {
 
     vm.filterCompaniesByName = filterCompaniesByName;
     vm.filterCompaniesByProducts = filterCompaniesByProducts;
+    vm.deleteCompanyByIndex = deleteCompanyByIndex;
 	}
 }
