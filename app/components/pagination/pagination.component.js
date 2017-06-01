@@ -2,6 +2,8 @@ export default ngModule => {
   ngModule.component('pagination', {
     bindings: {
       companies: '<',
+      pIndexOfCurrentPage: '<',
+      changeCurrentPage: '&'
     },
     controllerAs: 'pagination',
     controller: paginationController,
@@ -14,30 +16,32 @@ export default ngModule => {
     const companiesOnOnePage = 5;
     self.indexOfCurrentPage = 0;
     let numberOfCompanies = self.companies.length;
-    let numberOfPages = Math.ceil(numberOfCompanies / companiesOnOnePage);
-    self.arrayOfPages = ' '.repeat(numberOfPages).split('').map((p, i) => i);
+    self.numberOfPages = Math.ceil(numberOfCompanies / companiesOnOnePage);
+    self.arrayOfPages = ' '.repeat(self.numberOfPages).split('').map((p, i) => i);
     
-    self.$onInit = function () {
-  $log.log('initializing controllers, setting default values');
-  self.hello = "hello world!";
-};
-self.$onChanges = function (changes) {
-  $log.log(changes);
-};
+    self.$onChanges = function (changes) {
+      $log.log(changes);
+      let numberOfCompanies = self.companies.length;
+      self.numberOfPages = Math.ceil(numberOfCompanies / companiesOnOnePage);
+      self.arrayOfPages = ' '.repeat(self.numberOfPages).split('').map((p, i) => i);
+      self.indexOfCurrentPage = self.pIndexOfCurrentPage;
+    };
 
     const changePage = (newIndex) => {
       self.indexOfCurrentPage = newIndex;
-      self.hello += '0'
+      self.changeCurrentPage({index: newIndex});
     };
     
     const prevPage = () => {
       if(!self.indexOfCurrentPage) return;
       self.indexOfCurrentPage--;
+      self.changeCurrentPage({index: self.indexOfCurrentPage});
     };
 
     const nextPage = () => {
       if(self.indexOfCurrentPage === self.arrayOfPages.length - 1) return;
       self.indexOfCurrentPage++;
+      self.changeCurrentPage({index: self.indexOfCurrentPage});
     };
 
     self.changePage = changePage;

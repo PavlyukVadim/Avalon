@@ -7,7 +7,9 @@ export default ngModule => {
         <div class="row">
       		<div class="col s8">
       		  <list-of-companies companies="containerApp.model.companies"
-                               delete-company-by-index="containerApp.deleteCompanyByIndex(index)">
+                               index-of-current-page="containerApp.indexOfCurrentPage"
+                               delete-company-by-index="containerApp.deleteCompanyByIndex(index)"
+                               change-current-page="containerApp.changeCurrentPage(index)">
             </list-of-companies>
             <div class="progress-wrapper valign-wrapper" ng-if="containerApp.status != 'loaded'">
               <md-progress-linear md-mode="indeterminate"></md-progress-linear>
@@ -65,11 +67,12 @@ export default ngModule => {
     vm.model = {
       companies: []
     };
+    vm.indexOfCurrentPage = 0;
 
     $timeout(() => {
       vm.model.companies = [].concat(initialArrayOfCompanies);
       vm.status = 'loaded';
-    }, 0);
+    }, 1000);
 
     const filterCompaniesByName = (patternOfCompanyName) => {
       let companies = [].concat(initialArrayOfCompanies);
@@ -93,10 +96,19 @@ export default ngModule => {
     }
 
     const deleteCompanyByIndex = (index) => {
-      vm.model.companies.splice(index, 1);
-      console.log(vm.model.companies);
+      const companies = [].concat(vm.model.companies);
+      companies.splice(index, 1);
+      initialArrayOfCompanies.splice(index, 1);
+      vm.model.companies = companies;
+      if(initialArrayOfCompanies.length % 5 == 0) {
+        changeCurrentPage(vm.indexOfCurrentPage - 1);
+      }
     }
-
+    
+    const changeCurrentPage = (indexOfNewPage) => {
+      vm.indexOfCurrentPage = indexOfNewPage;
+      console.log('aaa');
+    }
 
     /*$http({
       method: 'GET',
@@ -110,5 +122,6 @@ export default ngModule => {
     vm.filterCompaniesByName = filterCompaniesByName;
     vm.filterCompaniesByProducts = filterCompaniesByProducts;
     vm.deleteCompanyByIndex = deleteCompanyByIndex;
+    vm.changeCurrentPage = changeCurrentPage;
 	}
 }

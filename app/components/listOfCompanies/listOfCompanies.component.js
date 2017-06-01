@@ -2,7 +2,9 @@ export default ngModule => {
   ngModule.component('listOfCompanies', {
   	bindings: {
     	companies: '<',
-    	deleteCompanyByIndex: '&'
+    	indexOfCurrentPage: '<',
+    	deleteCompanyByIndex: '&',
+    	changeCurrentPage: '&'
   	},
   	controllerAs: 'listOfCompanies',
   	controller: listOfCompaniesController,
@@ -12,7 +14,7 @@ export default ngModule => {
 	function listOfCompaniesController($http, $mdDialog) {
 		const vm = this;
 	  this.showTabDialog = function(ev, indexOfCompany) {
-	  	this.indexOfCurrentCompany = indexOfCompany;
+	  	this.indexOfCurrentCompany = indexOfCompany + vm.indexOfCurrentPage * 5;
       $mdDialog.show({
 	      controller: DialogController,
 	      templateUrl: '/components/listOfCompanies/tabDialog.tmpl.html',
@@ -39,7 +41,6 @@ export default ngModule => {
 
 	    const deleteCompany = () => {
 	    	vm.deleteCompanyByIndex({index: $scope.indexOfCurrentCompany});
-	    	//$scope.companies.splice($scope.indexOfCurrentCompany, 1);
 	    	$scope.cancel(); 
 	    };
 

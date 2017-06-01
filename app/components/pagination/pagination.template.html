@@ -1,4 +1,4 @@
-<ul class="pagination">
+<ul class="pagination" ng-if="pagination.numberOfPages > 1">
   <li ng-class="{disabled: !pagination.indexOfCurrentPage}"
       ng-click="pagination.prevPage()">
     <a href="#!">
