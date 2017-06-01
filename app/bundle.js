@@ -17746,7 +17746,7 @@
 	    $timeout(function () {
 	      vm.model.companies = [].concat(initialArrayOfCompanies);
 	      vm.status = 'loaded';
-	    }, 1000);
+	    }, 2500);
 
 	    var filterCompaniesByName = function filterCompaniesByName(patternOfCompanyName) {
 	      var companies = [].concat(initialArrayOfCompanies);
@@ -17777,7 +17777,7 @@
 	      companies.splice(index, 1);
 	      initialArrayOfCompanies.splice(index, 1);
 	      vm.model.companies = companies;
-	      if (initialArrayOfCompanies.length % 5 == 0) {
+	      if (initialArrayOfCompanies.length % 5 == 0 && index == initialArrayOfCompanies.length) {
 	        changeCurrentPage(vm.indexOfCurrentPage - 1);
 	      }
 	    };
@@ -17839,7 +17839,7 @@
 
 
 	// module
-	exports.push([module.id, ".container .row .s8 {\n  position: relative; }\n  .container .row .s8 .progress-wrapper {\n    position: absolute;\n    top: 200%;\n    width: 60%;\n    left: 20%;\n    height: 100%; }\n", ""]);
+	exports.push([module.id, ".container {\n  margin-top: 50px;\n  min-height: 100vh; }\n  .container .row .s8 {\n    position: relative; }\n    .container .row .s8 .progress-wrapper {\n      position: absolute;\n      top: 200%;\n      width: 60%;\n      left: 20%;\n      height: 100%; }\n", ""]);
 
 	// exports
 
@@ -18506,14 +18506,14 @@
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, "ul {\n  text-align: center; }\n", ""]);
 
 	// exports
 
 
 /***/ }),
 /* 16 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -18525,9 +18525,50 @@
 	  ngModule.component('myHeader', {
 	    templateUrl: '/components/header/header.template.html'
 	  });
+	  __webpack_require__(17);
 	};
 
 	module.exports = exports['default'];
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(18);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./header.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./header.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".my-parallax {\n  height: 100%;\n  margin-bottom: 20px;\n  background-attachment: fixed;\n  background-position: center center;\n  background-size: cover;\n  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(http://www.topcount.co/wp-content/uploads/2015/11/top-computer-companies-world-kiev-ukraine-may-logotype-collection-well-known-technologies-monitor-screen-41023829.jpg); }\n\nnav {\n  background-color: #8c9eff !important; }\n", ""]);
+
+	// exports
+
 
 /***/ })
 /******/ ]);
