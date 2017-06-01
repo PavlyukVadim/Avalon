@@ -82,10 +82,10 @@ export default ngModule => {
         return ~company.companyName.toLowerCase().search(`^${target}`)
       });
       vm.model.companies = companies;
+      changeCurrentPage(0);
     }
 
     const filterCompaniesByProducts = (patternOfCompanyProduct) => {
-      console.log('A', patternOfCompanyProduct)
       let companies = [].concat(initialArrayOfCompanies);
       let target = patternOfCompanyProduct.value || patternOfCompanyProduct;
       target = target.toLowerCase();
@@ -93,6 +93,7 @@ export default ngModule => {
         return company.companyGoods.some((product) => ~product.toLowerCase().search(`^${target}`))
       });
       vm.model.companies = companies;
+      changeCurrentPage(0);
     }
 
     const deleteCompanyByIndex = (index) => {
@@ -107,7 +108,6 @@ export default ngModule => {
     
     const changeCurrentPage = (indexOfNewPage) => {
       vm.indexOfCurrentPage = indexOfNewPage;
-      console.log('aaa');
     }
 
     /*$http({
